@@ -1,0 +1,25 @@
+{
+  "name": "hmr-testing",
+  "version": "1.0.0",
+  "description": "Testing webpack with HMR and cordova",
+  "main": "index.js",
+  "author": "michogar <michogar@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "onsenui": "^2.3.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "react-onsenui": "^1.3.4",
+    "webpack": "^2.6.1"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.dev.config.js"
+  }
+}
