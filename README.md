@@ -11,6 +11,7 @@ in order to avoid the continuous app reloading.
 
 ~~~
 $ yarn 
+$ cordova platforms add android
 $ npm run dev
 ~~~
 
