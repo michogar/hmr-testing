@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="co.geomati.hmr-testing" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="co.geomati.hmrtesting" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -7,7 +7,10 @@
     <author email="micho.garcia@geomati.co" href="http://geomati.co">
         Apache Cordova Team
     </author>
-    <content src="index.html" />
+    <!-- DEV -->
+    <content src="http://192.168.0.16:3000/" />
+    <!-- PROD -->
+    <!--content src="index.html" /-->
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
