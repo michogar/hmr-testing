@@ -17,29 +17,36 @@ if (process.env.REPORT) {
     }))
 }
 
+const entriesHot = [
+    'react-hot-loader/patch',
+    // activate HMR for React
+
+    'webpack-dev-server/client?http://0.0.0.0:3000',
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+
+    'webpack/hot/only-dev-server',
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
+
+    './src/index.js',
+    // the entry point of our app
+]
+
+const entries = [
+    './src/index.js',
+    // the entry point of our app
+]
+
 module.exports = {
     context: path.resolve(__dirname),
     devtool: "eval-source-map",
     entry: {
-        main: [
-            'react-hot-loader/patch',
-            // activate HMR for React
-
-            'webpack-dev-server/client?http://0.0.0.0:3000',
-            // bundle the client for webpack-dev-server
-            // and connect to the provided endpoint
-
-            'webpack/hot/only-dev-server',
-            // bundle the client for hot reloading
-            // only- means to only hot reload for successful updates
-
-            './src/index.js',
-            // the entry point of our app
-        ],
+        main: (process.env.BUILD) ? entries : entriesHot,
         vendor: ['onsenui', 'react', 'react-dom', 'react-onsenui']
     },
     output: {
-        path: path.resolve(__dirname, 'www/js'),
+        path: path.resolve(__dirname, 'platforms/android/assets/www/js'),
         filename: '[name].js',
     },
     module: {
@@ -60,10 +67,9 @@ module.exports = {
         ],
     },
     devServer: {
-        contentBase: path.join(__dirname, "www"),
+        contentBase: path.join(__dirname, "platforms/android/assets/www"),
         compress: true,
         port: 3000,
-        stats: "errors-only",
         hot: true,
         publicPath: '/js/',
         disableHostCheck: true,
