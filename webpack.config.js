@@ -1,6 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+let plugins = [
+    new webpack.HotModuleReplacementPlugin(),  // Enable HMR
+    new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor' // Specify the common bundle's name.
+    })
+]
+
+if (process.env.REPORT) {
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    plugins.push(new BundleAnalyzerPlugin({
+        analyzerMode: 'static'
+    }))
+}
 
 module.exports = {
     context: path.resolve(__dirname),
@@ -53,15 +68,5 @@ module.exports = {
         publicPath: '/js/',
         disableHostCheck: true,
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),  // Enable HMR
-        new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
-        new webpack.NoEmitOnErrorsPlugin(),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor' // Specify the common bundle's name.
-        })
-    ],
+    plugins: plugins,
 };
