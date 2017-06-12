@@ -1,27 +1,31 @@
 const path = require('path');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     context: path.resolve(__dirname),
     devtool: "eval-source-map",
-    entry: [
-        'react-hot-loader/patch',
-        // activate HMR for React
+    entry: {
+        main: [
+            'react-hot-loader/patch',
+            // activate HMR for React
 
-        'webpack-dev-server/client?http://0.0.0.0:3000',
-        // bundle the client for webpack-dev-server
-        // and connect to the provided endpoint
+            'webpack-dev-server/client?http://0.0.0.0:3000',
+            // bundle the client for webpack-dev-server
+            // and connect to the provided endpoint
 
-        'webpack/hot/only-dev-server',
-        // bundle the client for hot reloading
-        // only- means to only hot reload for successful updates
+            'webpack/hot/only-dev-server',
+            // bundle the client for hot reloading
+            // only- means to only hot reload for successful updates
 
-        './src/index.js',
-        // the entry point of our app
-    ],
+            './src/index.js',
+            // the entry point of our app
+        ],
+        vendor: ['onsenui', 'react', 'react-dom', 'react-onsenui']
+    },
     output: {
         path: path.resolve(__dirname, 'www/js'),
-        filename: 'bundle.js',
+        filename: '[name].js',
     },
     module: {
         rules: [
@@ -47,11 +51,17 @@ module.exports = {
         stats: "errors-only",
         hot: true,
         publicPath: '/js/',
-        disableHostCheck: true
+        disableHostCheck: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),  // Enable HMR
         new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
         new webpack.NoEmitOnErrorsPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor' // Specify the common bundle's name.
+        })
     ],
 };
